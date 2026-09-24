@@ -88,7 +88,7 @@ body {
 
 /* 국기 + 해 후광 */
 .halo {
-  position: absolute; width: 330px; height: 330px; border-radius: 50%;
+  position: absolute; width: 300px; height: 300px; border-radius: 50%;
   transform: translate(-50%, -50%) scale(var(--hs, .6));
   opacity: var(--ho, .2);
   background: radial-gradient(circle closest-side,
@@ -109,7 +109,9 @@ body {
 .time .hh, .time .mm { width: 1.3em; }
 .time .hh { text-align: right; }
 .time .mm { text-align: left; }
-.time .colon { opacity: .45; margin: 0 .04em; transform: translateY(-.06em); }
+/* 콜론은 글꼴 대신 작은 점 두 개로: 숫자보다 가볍게 */
+.time .colon { display: flex; flex-direction: column; gap: .24em; margin: 0 .09em; }
+.time .colon i { display: block; width: .095em; height: .095em; border-radius: 50%; background: var(--time); opacity: .6; }
 .date    { font-size: 54px; font-weight: 700; color: var(--date); }
 
 .divider {
@@ -199,8 +201,8 @@ body {
     <div class="c weekday" id="wd-uk"></div>
     <div class="c weekday" id="wd-kr"></div>
 
-    <div class="c time" id="time-uk" style="left:270px;top:424px"><span class="hh"></span><span class="colon">:</span><span class="mm"></span></div>
-    <div class="c time" id="time-kr" style="left:810px;top:424px"><span class="hh"></span><span class="colon">:</span><span class="mm"></span></div>
+    <div class="c time" id="time-uk" style="left:270px;top:424px"><span class="hh"></span><span class="colon"><i></i><i></i></span><span class="mm"></span></div>
+    <div class="c time" id="time-kr" style="left:810px;top:424px"><span class="hh"></span><span class="colon"><i></i><i></i></span><span class="mm"></span></div>
 
     <div class="lane" id="lane-uk"></div>
     <div class="lane" id="lane-kr"></div>
@@ -230,9 +232,9 @@ body {
   // lane: [x, y, 너비, 높이] — 같은 날엔 두 줄을 겹쳐 쌓고, 다른 날엔 좌우로 나눔
   const L = {
     merged: { wdY: 276, dateY: 706, divTop: 366, divH: 116,
-              uk: [270, 568, 540, 12], kr: [270, 583, 540, 12] },
-    split:  { wdY: 276, dateY: 706, divTop: 44, divH: 722,
-              uk: [60, 568, 420, 27],  kr: [600, 568, 420, 27] },
+              uk: [60, 568, 960, 12], kr: [60, 583, 960, 12] },
+    split:  { wdY: 276, dateY: 668, divTop: 44, divH: 722,
+              uk: [60, 568, 420, 27], kr: [600, 568, 420, 27] },
   };
 
   // ---------- 시간 소스 (테스트용 ?at=ISO&speed=N) ----------
