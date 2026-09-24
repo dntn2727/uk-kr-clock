@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="UK·KR">
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<title>UK · KR Clock</title>
+<style>
+@font-face {
+  font-family: "PXB";
+  font-weight: 800;
+  /* Pretendard ExtraBold, 필요한 글자만 서브셋 (SIL OFL) */
+  src: url(data:font/woff2;base64,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) format("woff2");
+}
+@font-face {
+  font-family: "PXB";
+  font-weight: 700;
+  src: url(data:font/woff2;base64,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) format("woff2");
+}
+:root {
+  /* 원칙: 따뜻한 색은 '해'에만 쓴다 (후광·막대). 나머지는 중립 + 차가운 포인트 하나 */
+  --bg: #000;
+  --time: #F4F1EC;      /* 주인공: 따뜻한 흰색 */
+  --weekday: #AAB4FA;   /* 포인트: 연보라 (밤하늘 남색과 같은 계열) */
+  --date: #80859D;      /* 보조: 남색 기운 회색 */
+  --ring: #5F6DE0;
+  --ring-track: #14151C;
+  --divider: #262833;
+  --pin: #F4F1EC;
+  --night: #1A2040;
+  --ease: cubic-bezier(.65, 0, .35, 1);
+  --dur: 1.4s;
+}
+/* 비교용: 처음 시안 색 (?theme=classic) */
+:root[data-theme="classic"] {
+  --time: #F4EFE6; --weekday: #FF7A59; --date: #F2C14E;
+  --ring: #2EC4B6; --ring-track: #1B1B20; --divider: #3A3A41;
+}
+html, body {
+  margin: 0; height: 100%;
+  background: var(--bg);
+  overflow: hidden;
+}
+body {
+  font-family: "PXB", "Apple SD Gothic Neo", -apple-system, sans-serif;
+  font-weight: 800;
+  color: var(--time);
+  -webkit-user-select: none; user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: none;
+}
+
+/* 상태바(홈 화면 앱) 아래 영역만 사용 */
+#screen {
+  position: fixed;
+  top: env(safe-area-inset-top); right: env(safe-area-inset-right);
+  bottom: env(safe-area-inset-bottom); left: env(safe-area-inset-left);
+}
+
+/* ---- 초 테두리 ---- */
+#ring { position: absolute; inset: 0; width: 100%; height: 100%; }
+#ring path { fill: none; stroke-width: 8; stroke-linecap: butt; stroke-linejoin: miter; }
+#ring .track { stroke: var(--ring-track); }
+#ring .fill  { stroke: var(--ring); }
+#ring .flash { stroke: var(--ring); opacity: 0; }
+#ring .flash.go { animation: flash .9s ease-out; }
+@keyframes flash { from { opacity: .9; } to { opacity: 0; } }
+
+/* ---- 1080×810 기준 무대, 화면에 맞춰 스케일 ---- */
+#stage {
+  position: absolute; left: 50%; top: 50%;
+  width: 1080px; height: 810px;
+  transform: translate(-50%, -50%) scale(var(--s, 1));
+}
+.c { position: absolute; transform: translate(-50%, -50%); white-space: nowrap; line-height: 1; }
+.anim, .anim * { transition: left var(--dur) var(--ease), top var(--dur) var(--ease),
+  width var(--dur) var(--ease), height var(--dur) var(--ease), opacity var(--dur) var(--ease); }
+.init, .init *, #stage.init .halo, #stage.init .flag { transition: none !important; }
+#screen { animation: appear 1.2s ease-out both; }
+@keyframes appear { from { opacity: 0; } to { opacity: 1; } }
+
+/* 국기 + 해 후광 */
+.halo {
+  position: absolute; width: 330px; height: 330px; border-radius: 50%;
+  transform: translate(-50%, -50%) scale(var(--hs, .6));
+  opacity: var(--ho, .2);
+  background: radial-gradient(circle closest-side,
+    rgba(var(--hc), 1) 0%, rgba(var(--hc), .62) 36%, rgba(var(--hc), .22) 62%, rgba(var(--hc), 0) 100%);
+  transition: transform 30s linear, opacity 30s linear, background 30s linear !important;
+}
+.flag {
+  width: 108px; height: 108px; border-radius: 50%; overflow: hidden;
+  filter: brightness(var(--fb, 1));
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, .08), 0 0 22px 3px rgba(var(--hc), calc(var(--ho) * .8));
+  transition: filter 30s linear, box-shadow 30s linear !important;
+}
+.flag svg, .pin-head svg { display: block; width: 100%; height: 100%; }
+
+.weekday { font-size: 84px; font-weight: 700; color: var(--weekday); letter-spacing: -1px; }
+.time    { font-size: 144px; letter-spacing: -2px; display: flex; align-items: center; }
+/* 콜론 위치 고정: 시는 오른쪽, 분은 왼쪽 정렬 → 숫자가 바뀌어도 화면이 흔들리지 않음 */
+.time .hh, .time .mm { width: 1.3em; }
+.time .hh { text-align: right; }
+.time .mm { text-align: left; }
+.time .colon { opacity: .45; margin: 0 .04em; transform: translateY(-.06em); }
+.date    { font-size: 54px; font-weight: 700; color: var(--date); }
+
+.divider {
+  position: absolute; left: 540px; width: 0;
+  border-left: 2px dashed var(--divider);
+  transform: translateX(-50%);
+}
+
+/* 타임라인: 나라별 하루 한 줄, 색은 그날 해의 고도 (영국 = 위 줄, 한국 = 아래 줄) */
+.lane {
+  position: absolute; border-radius: 4px; overflow: hidden;
+  background: var(--night);
+}
+.lane::after { /* 6시·12시·18시 눈금 */
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg,
+    transparent calc(25% - 1px), rgba(0,0,0,.55) calc(25% - 1px), rgba(0,0,0,.55) calc(25% + 1px), transparent calc(25% + 1px),
+    transparent calc(50% - 1px), rgba(0,0,0,.55) calc(50% - 1px), rgba(0,0,0,.55) calc(50% + 1px), transparent calc(50% + 1px),
+    transparent calc(75% - 1px), rgba(0,0,0,.55) calc(75% - 1px), rgba(0,0,0,.55) calc(75% + 1px), transparent calc(75% + 1px));
+}
+/* 핀은 막대 위가 기본. 같은 날(두 줄이 겹칠 때)만 한국 핀이 아래 줄을 가리키도록 내려감 */
+.pin { position: absolute; display: flex; flex-direction: column; align-items: center; transform: translate(-50%, -100%); }
+.pin.below { flex-direction: column-reverse; transform: translate(-50%, 0); }
+.anim .pin { transition: left var(--dur) var(--ease), top var(--dur) var(--ease), transform var(--dur) var(--ease); }
+.pin-head { width: 42px; height: 42px; border-radius: 50%; overflow: hidden; box-sizing: border-box; border: 3px solid var(--pin); background: var(--pin); box-shadow: 0 2px 8px rgba(0, 0, 0, .7); }
+.pin-tail { width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; }
+.pin .pin-tail { margin-top: -1px; border-top: 10px solid var(--pin); }
+.pin.below .pin-tail { margin: 0 0 -1px; border-top: 0; border-bottom: 10px solid var(--pin); }
+
+/* 세로 화면 안내 */
+#rotate {
+  display: none; position: fixed; inset: 0; background: #000; z-index: 10;
+  align-items: center; justify-content: center; flex-direction: column; gap: 24px;
+  color: var(--time); font-size: 40px;
+}
+#rotate svg { width: 96px; height: 96px; }
+@media (orientation: portrait) { #rotate { display: flex; } }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <clipPath id="ukT"><path d="M15,15h15v15zv15h-15zh-15v-15zv-15h15z"/></clipPath>
+  </defs>
+  <symbol id="flag-uk" viewBox="0 0 30 30">
+    <rect width="30" height="30" fill="#012169"/>
+    <path d="M0,0L30,30M30,0L0,30" stroke="#fff" stroke-width="6"/>
+    <path d="M0,0L30,30M30,0L0,30" clip-path="url(#ukT)" stroke="#C8102E" stroke-width="4"/>
+    <path d="M15,0v30M0,15h30" stroke="#fff" stroke-width="10"/>
+    <path d="M15,0v30M0,15h30" stroke="#C8102E" stroke-width="6"/>
+  </symbol>
+  <symbol id="flag-kr" viewBox="-29 -29 58 58">
+    <rect x="-30" y="-30" width="60" height="60" fill="#fff"/>
+    <g transform="rotate(33.69)">
+      <circle r="12" fill="#0047A0"/>
+      <path d="M-12,0A12,12 0 0 1 12,0A6,6 0 0 0 0,0A6,6 0 0 1 -12,0Z" fill="#CD2E3A"/>
+    </g>
+    <g fill="#000">
+      <!-- 건 ☰ (좌상) -->
+      <g transform="rotate(-146.31)"><rect x="18" y="-6" width="2" height="12"/><rect x="21" y="-6" width="2" height="12"/><rect x="24" y="-6" width="2" height="12"/></g>
+      <!-- 곤 ☷ (우하) -->
+      <g transform="rotate(33.69)"><rect x="18" y="-6" width="2" height="5.5"/><rect x="18" y=".5" width="2" height="5.5"/><rect x="21" y="-6" width="2" height="5.5"/><rect x="21" y=".5" width="2" height="5.5"/><rect x="24" y="-6" width="2" height="5.5"/><rect x="24" y=".5" width="2" height="5.5"/></g>
+      <!-- 감 ☵ (우상) -->
+      <g transform="rotate(-33.69)"><rect x="18" y="-6" width="2" height="5.5"/><rect x="18" y=".5" width="2" height="5.5"/><rect x="21" y="-6" width="2" height="12"/><rect x="24" y="-6" width="2" height="5.5"/><rect x="24" y=".5" width="2" height="5.5"/></g>
+      <!-- 리 ☲ (좌하) -->
+      <g transform="rotate(146.31)"><rect x="18" y="-6" width="2" height="12"/><rect x="21" y="-6" width="2" height="5.5"/><rect x="21" y=".5" width="2" height="5.5"/><rect x="24" y="-6" width="2" height="12"/></g>
+    </g>
+  </symbol>
+</svg>
+
+<div id="screen">
+  <svg id="ring" aria-hidden="true">
+    <path class="track"/>
+    <path class="flash"/>
+    <path class="fill"/>
+  </svg>
+
+  <div id="stage" class="init">
+    <div class="divider" id="divider"></div>
+
+    <div class="halo" id="halo-uk" style="left:270px;top:132px"></div>
+    <div class="halo" id="halo-kr" style="left:810px;top:132px"></div>
+    <div class="c flag" id="flag-uk" style="left:270px;top:132px"><svg><use href="#flag-uk"/></svg></div>
+    <div class="c flag" id="flag-kr" style="left:810px;top:132px"><svg><use href="#flag-kr"/></svg></div>
+
+    <div class="c weekday" id="wd-uk"></div>
+    <div class="c weekday" id="wd-kr"></div>
+
+    <div class="c time" id="time-uk" style="left:270px;top:424px"><span class="hh"></span><span class="colon">:</span><span class="mm"></span></div>
+    <div class="c time" id="time-kr" style="left:810px;top:424px"><span class="hh"></span><span class="colon">:</span><span class="mm"></span></div>
+
+    <div class="lane" id="lane-uk"></div>
+    <div class="lane" id="lane-kr"></div>
+    <div class="pin uk" id="pin-uk"><div class="pin-head"><svg><use href="#flag-uk"/></svg></div><div class="pin-tail"></div></div>
+    <div class="pin kr" id="pin-kr"><div class="pin-head"><svg><use href="#flag-kr"/></svg></div><div class="pin-tail"></div></div>
+
+    <div class="c date" id="date-uk"></div>
+    <div class="c date" id="date-kr"></div>
+  </div>
+</div>
+
+<div id="rotate">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="11" rx="2"/><path d="M8 3.5c2.5-1.3 5.5-1.3 8 0M14.5 2l1.5 1.5-1.5 1.5"/></svg>
+  <div>가로로 돌려주세요</div>
+</div>
+
+<script>
+(() => {
+  // ---------- 설정 ----------
+  const ZONES = {
+    uk: { tz: 'Europe/London', lat: 51.5074, lon: -0.1278 },   // 런던
+    kr: { tz: 'Asia/Seoul',    lat: 37.5665, lon: 126.9780 },  // 서울
+  };
+  const WEEKDAYS = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+
+  // 무대 좌표 (1080×810 기준)
+  // lane: [x, y, 너비, 높이] — 같은 날엔 두 줄을 겹쳐 쌓고, 다른 날엔 좌우로 나눔
+  const L = {
+    merged: { wdY: 276, dateY: 706, divTop: 366, divH: 116,
+              uk: [270, 568, 540, 12], kr: [270, 583, 540, 12] },
+    split:  { wdY: 276, dateY: 706, divTop: 44, divH: 722,
+              uk: [60, 568, 420, 27],  kr: [600, 568, 420, 27] },
+  };
+
+  // ---------- 시간 소스 (테스트용 ?at=ISO&speed=N) ----------
+  const q = new URLSearchParams(location.search);
+  const at = q.has('at') ? Date.parse(q.get('at')) : NaN;
+  const speed = Number(q.get('speed')) || 1;
+  const t0 = isNaN(at) ? Date.now() : at, p0 = performance.now();
+  const simulated = !isNaN(at) || speed !== 1;
+  if (q.get('theme')) document.documentElement.dataset.theme = q.get('theme');
+  const now = () => simulated ? t0 + (performance.now() - p0) * speed : Date.now();
+
+  const fmts = {};
+  for (const k in ZONES) {
+    fmts[k] = new Intl.DateTimeFormat('en-US', {
+      timeZone: ZONES[k].tz, hourCycle: 'h23',
+      year: 'numeric', month: 'numeric', day: 'numeric',
+      hour: '2-digit', minute: '2-digit', second: '2-digit',
+    });
+  }
+  function zoned(t, k) {
+    const o = {};
+    for (const p of fmts[k].formatToParts(t)) o[p.type] = p.value;
+    const y = +o.year, m = +o.month, d = +o.day, h = +o.hour % 24, mi = +o.minute, s = +o.second;
+    return { y, m, d, h, mi, s, dow: new Date(Date.UTC(y, m - 1, d)).getUTCDay(), key: y * 10000 + m * 100 + d };
+  }
+
+  // ---------- 태양 고도 (근사식, 오차 ~0.5°) ----------
+  function sunElevation(t, lat, lon) {
+    const rad = Math.PI / 180;
+    const n = t / 86400000 + 2440587.5 - 2451545.0;
+    const Lm = (280.460 + 0.9856474 * n) % 360;
+    const g = ((357.528 + 0.9856003 * n) % 360) * rad;
+    const lam = (Lm + 1.915 * Math.sin(g) + 0.020 * Math.sin(2 * g)) * rad;
+    const eps = (23.439 - 0.0000004 * n) * rad;
+    const dec = Math.asin(Math.sin(eps) * Math.sin(lam));
+    const ra = Math.atan2(Math.cos(eps) * Math.sin(lam), Math.cos(lam));
+    const gmst = ((18.697374558 + 24.06570982441908 * n) % 24 + 24) % 24;
+    const ha = (gmst * 15 + lon) * rad - ra;
+    const el = Math.asin(Math.sin(lat * rad) * Math.sin(dec) + Math.cos(lat * rad) * Math.cos(dec) * Math.cos(ha));
+    return el / rad;
+  }
+  // 고도 → [r, g, b, 후광 불투명도, 후광 크기, 국기 밝기]
+  const SUN = [
+    [-90, [ 60,  85, 170, .20, .54, .60]],
+    [-18, [ 60,  85, 170, .20, .54, .60]],
+    [-12, [ 80,  75, 175, .26, .58, .68]],
+    [ -6, [150,  80, 175, .36, .62, .80]],
+    [ -2, [255,  95,  80, .52, .70, .92]],
+    [  3, [255, 140,  60, .70, .79, 1.0]],
+    [ 12, [255, 185,  80, .85, .87, 1.0]],
+    [ 30, [255, 215, 120, .95, .94, 1.0]],
+    [ 60, [255, 238, 170, 1.0, 1.0, 1.0]],
+    [ 90, [255, 238, 170, 1.0, 1.0, 1.0]],
+  ];
+  function sunLook(el) {
+    for (let i = 1; i < SUN.length; i++) {
+      if (el <= SUN[i][0]) {
+        const [e0, a] = SUN[i - 1], [e1, b] = SUN[i];
+        const f = Math.max(0, Math.min(1, (el - e0) / (e1 - e0)));
+        return a.map((v, j) => v + (b[j] - v) * f);
+      }
+    }
+    return SUN[SUN.length - 1][1];
+  }
+
+  // ---------- DOM ----------
+  const $ = id => document.getElementById(id);
+  const stage = $('stage'), screenEl = $('screen');
+  const ringSvg = $('ring');
+  const [track, flash, fill] = ['track', 'flash', 'fill'].map(c => ringSvg.querySelector('.' + c));
+  let perimeter = 1;
+
+  function layoutScreen() {
+    const w = screenEl.clientWidth, h = screenEl.clientHeight, i = 4; // 선 두께의 절반
+    ringSvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    const d = `M${w / 2},${i}H${w - i}V${h - i}H${i}V${i}H${w / 2}`;
+    for (const p of [track, flash, fill]) p.setAttribute('d', d);
+    perimeter = 2 * ((w - 2 * i) + (h - 2 * i));
+    for (const p of [flash, fill]) p.style.strokeDasharray = `${perimeter} ${perimeter}`;
+    flash.style.strokeDashoffset = 0;
+    const pad = 12;
+    stage.style.setProperty('--s', Math.min((w - pad) / 1080, (h - pad) / 810));
+  }
+  addEventListener('resize', layoutScreen);
+
+  const setText = (el, v) => { if (el.textContent !== v) el.textContent = v; };
+  const pos = (el, x, y) => { el.style.left = x + 'px'; if (y != null) el.style.top = y + 'px'; };
+  const pad2 = n => String(n).padStart(2, '0');
+
+  function renderClock(t) {
+    const uk = zoned(t, 'uk'), kr = zoned(t, 'kr');
+    const split = uk.key !== kr.key;
+    const lay = split ? L.split : L.merged;
+
+    for (const [k, z] of [['uk', uk], ['kr', kr]]) {
+      const el = $('time-' + k);
+      setText(el.querySelector('.hh'), pad2(z.h));
+      setText(el.querySelector('.mm'), pad2(z.mi));
+    }
+    setText($('wd-uk'), WEEKDAYS[uk.dow]);
+    setText($('wd-kr'), WEEKDAYS[kr.dow]);
+    setText($('date-uk'), `${uk.m}/${uk.d}`);
+    setText($('date-kr'), `${kr.m}/${kr.d}`);
+
+    // 요일·날짜: 같은 날이면 가운데 하나로 합침
+    pos($('wd-uk'), split ? 270 : 540, lay.wdY);
+    pos($('wd-kr'), split ? 810 : 540, lay.wdY);
+    pos($('date-uk'), split ? 270 : 540, lay.dateY);
+    pos($('date-kr'), split ? 810 : 540, lay.dateY);
+    $('wd-kr').style.opacity = $('date-kr').style.opacity = split ? 1 : 0;
+
+    const div = $('divider');
+    div.style.top = lay.divTop + 'px';
+    div.style.height = lay.divH + 'px';
+
+    // 타임라인: 각 나라의 '오늘' 한 줄 + 핀 (같은 날엔 한국 핀만 아래 줄에)
+    for (const [k, z] of [['uk', uk], ['kr', kr]]) {
+      const [x, y, w, h] = lay[k], lane = $('lane-' + k);
+      lane.style.left = x + 'px'; lane.style.top = y + 'px';
+      lane.style.width = w + 'px'; lane.style.height = h + 'px';
+      paintLane(k, z, t);
+      const below = k === 'kr' && !split;
+      $('pin-' + k).classList.toggle('below', below);
+      pos($('pin-' + k), x + w * dayFrac(z), below ? y + h : y);
+    }
+
+    stage.classList.toggle('split', split);
+  }
+
+  const dayFrac = z => (z.h + z.mi / 60 + z.s / 3600) / 24;
+
+  // 막대 색: 고도 → 밤(남색) · 여명(보라→장미) · 해(주황→금빛→밝은 햇빛)
+  const BAR = [
+    [-90, [ 26,  32,  66]],
+    [-18, [ 26,  32,  66]],
+    [-12, [ 44,  42,  96]],
+    [ -6, [ 96,  60, 128]],
+    [ -2, [196,  88, 112]],
+    [  2, [255, 138,  76]],
+    [ 10, [255, 184,  92]],
+    [ 25, [255, 214, 132]],
+    [ 50, [255, 238, 190]],
+    [ 90, [255, 238, 190]],
+  ];
+  function barColor(el) {
+    for (let i = 1; i < BAR.length; i++) {
+      if (el <= BAR[i][0]) {
+        const [e0, a] = BAR[i - 1], [e1, b] = BAR[i];
+        const f = Math.max(0, Math.min(1, (el - e0) / (e1 - e0)));
+        return `rgb(${a.map((v, j) => Math.round(v + (b[j] - v) * f)).join(',')})`;
+      }
+    }
+  }
+  const painted = {};
+  function paintLane(k, z, t) {
+    if (painted[k] === z.key) return;          // 날짜가 바뀔 때만 다시 칠함
+    painted[k] = z.key;
+    const hf = dayFrac(z), stops = [];
+    for (let i = 0; i <= 96; i++) {            // 15분 간격
+      const tt = t + (i / 96 - hf) * 86400000;
+      stops.push(`${barColor(sunElevation(tt, ZONES[k].lat, ZONES[k].lon))} ${(i / 96 * 100).toFixed(2)}%`);
+    }
+    $('lane-' + k).style.backgroundImage = `linear-gradient(90deg, ${stops.join(', ')})`;
+  }
+
+  function renderSun(t) {
+    for (const k of ['uk', 'kr']) {
+      const [r, g, b, o, s, fb] = sunLook(sunElevation(t, ZONES[k].lat, ZONES[k].lon));
+      for (const el of [$('halo-' + k), $('flag-' + k)]) {
+        el.style.setProperty('--hc', `${r | 0}, ${g | 0}, ${b | 0}`);
+        el.style.setProperty('--ho', o.toFixed(3));
+        el.style.setProperty('--hs', s.toFixed(3));
+        el.style.setProperty('--fb', fb.toFixed(3));
+      }
+    }
+  }
+
+  // ---------- 루프 ----------
+  let lastSec = null, lastSunT = -Infinity, lastFrac = 0;
+  function frame() {
+    const t = now();
+    const frac = (((t % 60000) + 60000) % 60000) / 60000;
+    fill.style.strokeDashoffset = perimeter * (1 - frac);
+    if (frac < lastFrac - 0.5) {           // 1분 완성 → 잔광
+      flash.classList.remove('go'); void flash.getBBox(); flash.classList.add('go');
+    }
+    lastFrac = frac;
+
+    const sec = Math.floor(t / 1000);
+    if (sec !== lastSec) { lastSec = sec; renderClock(t); }
+    if (Math.abs(t - lastSunT) > 30000) { lastSunT = t; renderSun(t); }
+    requestAnimationFrame(frame);
+  }
+
+  layoutScreen();
+  renderSun(now());
+  renderClock(now());
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    stage.classList.remove('init');
+    stage.classList.add('anim');
+  }));
+  requestAnimationFrame(frame);
+
+  // ---------- 상시 켜두기 ----------
+  let lock = null;
+  async function keepAwake() {
+    try { if ('wakeLock' in navigator && !lock) { lock = await navigator.wakeLock.request('screen'); lock.addEventListener('release', () => { lock = null; }); } } catch (e) {}
+  }
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') keepAwake(); });
+  document.addEventListener('touchend', keepAwake, { passive: true });
+  keepAwake();
+
+  // 매일 영국 04:00에 새로고침 (업데이트 반영 + 장기 실행 안정성)
+  if (!simulated) {
+    setInterval(() => {
+      const uk = zoned(Date.now(), 'uk');
+      if (uk.h === 4 && uk.mi === 0 && performance.now() > 120000) location.reload();
+    }, 30000);
+  }
+
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+})();
+</script>
+</body>
+</html>
