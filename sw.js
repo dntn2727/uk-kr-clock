@@ -1,5 +1,5 @@
 // 오프라인에서도 열리도록: 네트워크 우선, 실패하면 캐시
-const CACHE = 'ukkr-v2';
+const CACHE = 'ukkr-v3';
 const FILES = ['./', 'index.html', 'manifest.webmanifest', 'icon-180.png', 'icon-512.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES))); self.skipWaiting(); });
 self.addEventListener('activate', e => {
@@ -9,7 +9,7 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   e.respondWith(
-    fetch(e.request).then(r => {
+    fetch(e.request, { cache: 'no-cache' }).then(r => {   // 항상 서버에 새 버전 확인
       const copy = r.clone();
       caches.open(CACHE).then(c => c.put(e.request, copy));
       return r;
