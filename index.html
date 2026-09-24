@@ -97,7 +97,7 @@ body {
 }
 .flag {
   width: 108px; height: 108px; border-radius: 50%; overflow: hidden;
-  filter: brightness(var(--fb, 1));
+  filter: brightness(var(--fb, 1)) saturate(var(--fsat, 1));
   box-shadow: 0 0 0 1.5px rgba(255, 255, 255, .08), 0 0 22px 3px rgba(var(--hc), calc(var(--ho) * .8));
   transition: filter 30s linear, box-shadow 30s linear !important;
 }
@@ -155,14 +155,14 @@ body {
   <defs>
     <clipPath id="ukT"><path d="M15,15h15v15zv15h-15zh-15v-15zv-15h15z"/></clipPath>
   </defs>
-  <symbol id="flag-uk" viewBox="0 0 30 30">
+  <symbol id="sym-uk" viewBox="0 0 30 30">
     <rect width="30" height="30" fill="#012169"/>
     <path d="M0,0L30,30M30,0L0,30" stroke="#fff" stroke-width="6"/>
     <path d="M0,0L30,30M30,0L0,30" clip-path="url(#ukT)" stroke="#C8102E" stroke-width="4"/>
     <path d="M15,0v30M0,15h30" stroke="#fff" stroke-width="10"/>
     <path d="M15,0v30M0,15h30" stroke="#C8102E" stroke-width="6"/>
   </symbol>
-  <symbol id="flag-kr" viewBox="-29 -29 58 58">
+  <symbol id="sym-kr" viewBox="-29 -29 58 58">
     <rect x="-30" y="-30" width="60" height="60" fill="#fff"/>
     <g transform="rotate(33.69)">
       <circle r="12" fill="#0047A0"/>
@@ -193,8 +193,8 @@ body {
 
     <div class="halo" id="halo-uk" style="left:270px;top:132px"></div>
     <div class="halo" id="halo-kr" style="left:810px;top:132px"></div>
-    <div class="c flag" id="flag-uk" style="left:270px;top:132px"><svg><use href="#flag-uk"/></svg></div>
-    <div class="c flag" id="flag-kr" style="left:810px;top:132px"><svg><use href="#flag-kr"/></svg></div>
+    <div class="c flag" id="flag-uk" style="left:270px;top:132px"><svg><use href="#sym-uk"/></svg></div>
+    <div class="c flag" id="flag-kr" style="left:810px;top:132px"><svg><use href="#sym-kr"/></svg></div>
 
     <div class="c weekday" id="wd-uk"></div>
     <div class="c weekday" id="wd-kr"></div>
@@ -204,8 +204,8 @@ body {
 
     <div class="lane" id="lane-uk"></div>
     <div class="lane" id="lane-kr"></div>
-    <div class="pin uk" id="pin-uk"><div class="pin-head"><svg><use href="#flag-uk"/></svg></div><div class="pin-tail"></div></div>
-    <div class="pin kr" id="pin-kr"><div class="pin-head"><svg><use href="#flag-kr"/></svg></div><div class="pin-tail"></div></div>
+    <div class="pin uk" id="pin-uk"><div class="pin-head"><svg><use href="#sym-uk"/></svg></div><div class="pin-tail"></div></div>
+    <div class="pin kr" id="pin-kr"><div class="pin-head"><svg><use href="#sym-kr"/></svg></div><div class="pin-tail"></div></div>
 
     <div class="c date" id="date-uk"></div>
     <div class="c date" id="date-kr"></div>
@@ -276,11 +276,11 @@ body {
   }
   // 고도 → [r, g, b, 후광 불투명도, 후광 크기, 국기 밝기]
   const SUN = [
-    [-90, [ 60,  85, 170, .20, .54, .60]],
-    [-18, [ 60,  85, 170, .20, .54, .60]],
-    [-12, [ 80,  75, 175, .26, .58, .68]],
-    [ -6, [150,  80, 175, .36, .62, .80]],
-    [ -2, [255,  95,  80, .52, .70, .92]],
+    [-90, [ 60,  85, 170, .20, .54, .30]],
+    [-18, [ 60,  85, 170, .20, .54, .30]],
+    [-12, [ 80,  75, 175, .26, .58, .38]],
+    [ -6, [150,  80, 175, .36, .62, .55]],
+    [ -2, [255,  95,  80, .52, .70, .82]],
     [  3, [255, 140,  60, .70, .79, 1.0]],
     [ 12, [255, 185,  80, .85, .87, 1.0]],
     [ 30, [255, 215, 120, .95, .94, 1.0]],
@@ -406,6 +406,7 @@ body {
         el.style.setProperty('--ho', o.toFixed(3));
         el.style.setProperty('--hs', s.toFixed(3));
         el.style.setProperty('--fb', fb.toFixed(3));
+        el.style.setProperty('--fsat', (.35 + .65 * (fb - .3) / .7).toFixed(3)); // 밤엔 색도 빠짐
       }
     }
   }
