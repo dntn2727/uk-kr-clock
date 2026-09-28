@@ -76,7 +76,7 @@ body {
 /* ---- 1080×810 기준 무대, 화면에 맞춰 스케일 ---- */
 #stage {
   position: absolute; left: 50%; top: 50%;
-  width: 1080px; height: 810px;
+  width: 1080px; height: 810px; /* 높이는 화면 비율에 맞춰 JS가 조정 */
   transform: translate(-50%, -50%) scale(var(--s, 1));
 }
 .c { position: absolute; transform: translate(-50%, -50%); white-space: nowrap; line-height: 1; }
@@ -193,16 +193,16 @@ body {
   <div id="stage" class="init">
     <div class="divider" id="divider"></div>
 
-    <div class="halo" id="halo-uk" style="left:270px;top:132px"></div>
-    <div class="halo" id="halo-kr" style="left:810px;top:132px"></div>
-    <div class="c flag" id="flag-uk" style="left:270px;top:132px"><svg><use href="#sym-uk"/></svg></div>
-    <div class="c flag" id="flag-kr" style="left:810px;top:132px"><svg><use href="#sym-kr"/></svg></div>
+    <div class="halo" id="halo-uk" style="left:270px"></div>
+    <div class="halo" id="halo-kr" style="left:810px"></div>
+    <div class="c flag" id="flag-uk" style="left:270px"><svg><use href="#sym-uk"/></svg></div>
+    <div class="c flag" id="flag-kr" style="left:810px"><svg><use href="#sym-kr"/></svg></div>
 
     <div class="c weekday" id="wd-uk"></div>
     <div class="c weekday" id="wd-kr"></div>
 
-    <div class="c time" id="time-uk" style="left:270px;top:424px"><span class="hh"></span><span class="colon"><i></i><i></i></span><span class="mm"></span></div>
-    <div class="c time" id="time-kr" style="left:810px;top:424px"><span class="hh"></span><span class="colon"><i></i><i></i></span><span class="mm"></span></div>
+    <div class="c time" id="time-uk" style="left:270px"><span class="hh"></span><span class="colon"><i></i><i></i></span><span class="mm"></span></div>
+    <div class="c time" id="time-kr" style="left:810px"><span class="hh"></span><span class="colon"><i></i><i></i></span><span class="mm"></span></div>
 
     <div class="lane" id="lane-uk"></div>
     <div class="lane" id="lane-kr"></div>
@@ -230,12 +230,16 @@ body {
 
   // 무대 좌표 (1080×810 기준)
   // lane: [x, y, 너비, 높이] — 같은 날엔 두 줄을 겹쳐 쌓고, 다른 날엔 좌우로 나눔
+  // 세로 좌표는 810 높이 기준 → 실제 화면 비율에 맞춰 Y()로 늘리거나 줄임
+  const FLAG_Y = 138, TIME_Y = 430;
   const L = {
-    merged: { wdY: 276, dateY: 706, divTop: 366, divH: 116,
-              uk: [60, 568, 960, 12], kr: [60, 583, 960, 12] },
-    split:  { wdY: 276, dateY: 668, divTop: 44, divH: 722,
-              uk: [60, 568, 420, 27], kr: [600, 568, 420, 27] },
+    merged: { wdY: 282, dateY: 714, divTop: 372, divH: 116,
+              uk: [60, 574, 960, 12], kr: [60, 589, 960, 12] },
+    split:  { wdY: 282, dateY: 714, divTop: 44, divH: 722,
+              uk: [60, 574, 420, 27], kr: [600, 574, 420, 27] },
   };
+  let ky = 1;
+  const Y = y => y * ky;
 
   // ---------- 시간 소스 (테스트용 ?at=ISO&speed=N) ----------
   const q = new URLSearchParams(location.search);
@@ -315,8 +319,16 @@ body {
     perimeter = 2 * ((w - 2 * i) + (h - 2 * i));
     for (const p of [flash, fill]) p.style.strokeDasharray = `${perimeter} ${perimeter}`;
     flash.style.strokeDashoffset = 0;
-    const pad = 8;
-    stage.style.setProperty('--s', Math.min((w - pad) / 1080, (h - pad) / 810));
+    // 무대 너비는 1080 고정, 높이는 화면 비율대로 (너무 납작/길쭉하면 제한)
+    const sh = Math.max(740, Math.min(900, 1080 * h / w));
+    ky = sh / 810;
+    stage.style.height = sh + 'px';
+    stage.style.setProperty('--s', Math.min(w / 1080, h / sh));
+    for (const k of ['uk', 'kr']) {
+      $('halo-' + k).style.top = $('flag-' + k).style.top = Y(FLAG_Y) + 'px';
+      $('time-' + k).style.top = Y(TIME_Y) + 'px';
+    }
+    if (lastMin !== null) renderClock(now());
   }
   addEventListener('resize', layoutScreen);
 
@@ -340,19 +352,19 @@ body {
     setText($('date-kr'), `${kr.m}/${kr.d}`);
 
     // 요일·날짜: 같은 날이면 가운데 하나로 합침
-    pos($('wd-uk'), split ? 270 : 540, lay.wdY);
-    pos($('wd-kr'), split ? 810 : 540, lay.wdY);
-    pos($('date-uk'), split ? 270 : 540, lay.dateY);
-    pos($('date-kr'), split ? 810 : 540, lay.dateY);
+    pos($('wd-uk'), split ? 270 : 540, Y(lay.wdY));
+    pos($('wd-kr'), split ? 810 : 540, Y(lay.wdY));
+    pos($('date-uk'), split ? 270 : 540, Y(lay.dateY));
+    pos($('date-kr'), split ? 810 : 540, Y(lay.dateY));
     $('wd-kr').style.opacity = $('date-kr').style.opacity = split ? 1 : 0;
 
     const div = $('divider');
-    div.style.top = lay.divTop + 'px';
-    div.style.height = lay.divH + 'px';
+    div.style.top = Y(lay.divTop) + 'px';
+    div.style.height = Y(lay.divH) + 'px';
 
     // 타임라인: 각 나라의 '오늘' 한 줄 + 핀 (같은 날엔 한국 핀만 아래 줄에)
     for (const [k, z] of [['uk', uk], ['kr', kr]]) {
-      const [x, y, w, h] = lay[k], lane = $('lane-' + k);
+      const [x, y0, w, h] = lay[k], y = Y(y0), lane = $('lane-' + k);
       lane.style.left = x + 'px'; lane.style.top = y + 'px';
       lane.style.width = w + 'px'; lane.style.height = h + 'px';
       paintLane(k, z, t);
