@@ -65,7 +65,7 @@ body {
 }
 
 /* ---- 초 테두리 ---- */
-#ring { position: absolute; inset: 0; width: 100%; height: 100%; }
+#ring { position: absolute; inset: 0; width: 100%; height: 100%; will-change: transform; }
 #ring path { fill: none; stroke-width: 4; stroke-linecap: butt; stroke-linejoin: miter; }
 #ring .track { stroke: var(--ring-track); }
 #ring .fill  { stroke: var(--ring); }
@@ -93,13 +93,13 @@ body {
   opacity: var(--ho, .2);
   background: radial-gradient(circle closest-side,
     rgba(var(--hc), 1) 0%, rgba(var(--hc), .62) 36%, rgba(var(--hc), .22) 62%, rgba(var(--hc), 0) 100%);
-  transition: transform 30s linear, opacity 30s linear, background 30s linear !important;
+  transition: transform 3s linear, opacity 3s linear !important;
 }
 .flag {
   width: 108px; height: 108px; border-radius: 50%; overflow: hidden;
   filter: brightness(var(--fb, 1)) saturate(var(--fsat, 1));
-  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, .08), 0 0 22px 3px rgba(var(--hc), calc(var(--ho) * .8));
-  transition: filter 30s linear, box-shadow 30s linear !important;
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, .08), 0 0 22px 3px rgba(var(--hc), var(--hso, 0));
+  transition: filter 3s linear, box-shadow 3s linear !important;
 }
 .flag svg, .pin-head svg { display: block; width: 100%; height: 100%; }
 
@@ -315,7 +315,7 @@ body {
     perimeter = 2 * ((w - 2 * i) + (h - 2 * i));
     for (const p of [flash, fill]) p.style.strokeDasharray = `${perimeter} ${perimeter}`;
     flash.style.strokeDashoffset = 0;
-    const pad = 12;
+    const pad = 8;
     stage.style.setProperty('--s', Math.min((w - pad) / 1080, (h - pad) / 810));
   }
   addEventListener('resize', layoutScreen);
@@ -358,7 +358,7 @@ body {
       paintLane(k, z, t);
       const below = k === 'kr' && !split;
       $('pin-' + k).classList.toggle('below', below);
-      pos($('pin-' + k), x + w * dayFrac(z), below ? y + h : y);
+      pos($('pin-' + k), x + w * (z.h + z.mi / 60) / 24, below ? y + h : y);
     }
 
     stage.classList.toggle('split', split);
@@ -409,25 +409,32 @@ body {
         el.style.setProperty('--hs', s.toFixed(3));
         el.style.setProperty('--fb', fb.toFixed(3));
         el.style.setProperty('--fsat', (.35 + .65 * (fb - .3) / .7).toFixed(3)); // 밤엔 색도 빠짐
+        el.style.setProperty('--hso', (o * .8).toFixed(3));
       }
     }
   }
 
   // ---------- 루프 ----------
-  let lastSec = null, lastSunT = -Infinity, lastFrac = 0;
+  let lastMin = null, lastSunT = -Infinity, lastFrac = 0, lastRingT = 0;
   function frame() {
+    requestAnimationFrame(frame);
     const t = now();
     const frac = (((t % 60000) + 60000) % 60000) / 60000;
-    fill.style.strokeDashoffset = perimeter * (1 - frac);
-    if (frac < lastFrac - 0.5) {           // 1분 완성 → 잔광
+    const wrapped = frac < lastFrac - 0.5;
+    // 초 테두리: 초당 ~25회면 충분 (구형 아이패드 발열·배터리 절약)
+    if (wrapped || t - lastRingT >= 40 * (simulated ? 0 : 1)) {
+      lastRingT = t;
+      fill.style.strokeDashoffset = (perimeter * (1 - frac)).toFixed(1);
+    }
+    if (wrapped) {                         // 1분 완성 → 잔광
       flash.classList.remove('go'); void flash.getBBox(); flash.classList.add('go');
     }
     lastFrac = frac;
 
-    const sec = Math.floor(t / 1000);
-    if (sec !== lastSec) { lastSec = sec; renderClock(t); }
+    // 화면의 숫자·핀·레이아웃은 분 단위로만 바뀜
+    const min = Math.floor(t / 60000);
+    if (min !== lastMin) { lastMin = min; renderClock(t); }
     if (Math.abs(t - lastSunT) > 30000) { lastSunT = t; renderSun(t); }
-    requestAnimationFrame(frame);
   }
 
   layoutScreen();
